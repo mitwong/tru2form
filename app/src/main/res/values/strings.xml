@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">tru2form</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Compose Text</string>
     <string name="action_settings">Settings</string>
     <string name="text_message_hint">Text Message</string>
     <string name="title_activity_compose_text">ComposeText</string>
