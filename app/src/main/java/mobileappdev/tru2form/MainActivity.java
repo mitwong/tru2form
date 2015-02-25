@@ -15,15 +15,14 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //MenuInflater inflater = getMenuInflater();
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -42,6 +41,27 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Need to implement the actual replacement
+    public void replaceFirstName(View view) {
+        Context context = getApplicationContext();
+        CharSequence text = "Auto Replacing First Name";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    // Need to implement the actual replacement
+    public void replaceFullName(View view) {
+        Context context = getApplicationContext();
+        CharSequence text = "Auto Replacing Full Name";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    // Need to actual send the sms
     public void sendText(View view) {
         Context context = getApplicationContext();
         CharSequence text = "Text Sent!";

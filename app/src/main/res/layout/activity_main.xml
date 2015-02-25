@@ -6,28 +6,67 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="mobileappdev.tru2form.MainActivity">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/contacts"
+        android:ems="10"
+        android:id="@+id/contactsField"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/replacementButtons"
 
-        <EditText
+        android:layout_below="@id/contactsField">
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:layout_weight="1"
-            android:hint="@string/text_message_hint"/>
+            android:layout_weight=".5"
+            android:id="@+id/firstNameReplaceButton"
+            android:text="Auto First Name"
+            android:onClick="replaceFirstName"/>
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:id="@+id/sendTextButton"
-            android:src="@drawable/ic_action_send_now"
-            android:contentDescription="@string/send_text_description"
-
-            android:onClick="sendText"
-            />
-
+            android:layout_weight=".5"
+            android:id="@+id/fullNameReplaceButton"
+            android:text="Auto Full Name"
+            android:onClick="replaceFullName"/>
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/sendTextButton"
+        android:src="@drawable/ic_action_send_now"
+        android:contentDescription="@string/send_text_description"
+
+        android:onClick="sendText"
+
+        android:layout_below="@id/replacementButtons"
+        android:layout_alignParentRight="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_message_hint"
+        android:ems="10"
+        android:id="@+id/editText"
+
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/replacementButtons"
+        android:layout_toLeftOf="@id/sendTextButton"/>
+
+
 </RelativeLayout>
