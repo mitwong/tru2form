@@ -22,10 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:id="@+id/sendText"
+            android:id="@+id/sendTextButton"
             android:src="@drawable/ic_action_send_now"
             android:contentDescription="@string/send_text_description"
 
+            android:onClick="sendText"
             />
 
     </LinearLayout>
