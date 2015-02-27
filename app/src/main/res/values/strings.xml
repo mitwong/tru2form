@@ -8,5 +8,6 @@
     <string name="title_activity_compose_text">ComposeText</string>
     <string name="send_text_description">Used to send the text message</string>
     <string name="contacts">Contacts</string>
+    <string name="contacts_hint">To ...</string>
 
 </resources>

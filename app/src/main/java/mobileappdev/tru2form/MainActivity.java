@@ -7,7 +7,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
+
+import com.android.ex.chips.BaseRecipientAdapter;
+import com.android.ex.chips.RecipientEditTextView;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -15,6 +19,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Creates the autocomplete field for the recipients field
+        final RecipientEditTextView contactsField =
+                (RecipientEditTextView) findViewById(R.id.contactsField);
+        contactsField.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        contactsField.setAdapter(new BaseRecipientAdapter(BaseRecipientAdapter.QUERY_TYPE_PHONE, this));
     }
 
 
