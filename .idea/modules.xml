@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/chips/chips.iml" filepath="$PROJECT_DIR$/library/chips/chips.iml" />
       <module fileurl="file://$PROJECT_DIR$/tru2form.iml" filepath="$PROJECT_DIR$/tru2form.iml" />
     </modules>
   </component>

@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobileappdev.tru2form" >
 
-    <!--Ask for permission to send SMS messages-->
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <!--Ask for permisison to read Contact information-->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Ask for permission to send SMS messages -->
+    <uses-permission android:name="android.permission.send_sms" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +19,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ComposeText"
+            android:label="@string/title_activity_compose_text"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mobileappdev.tru2form.MainActivity" />
         </activity>
     </application>
 

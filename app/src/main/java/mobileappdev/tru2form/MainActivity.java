@@ -1,9 +1,6 @@
 package mobileappdev.tru2form;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,8 +59,6 @@ public class MainActivity extends ActionBarActivity {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-
-
     }
 
     // Need to actual send the sms
@@ -75,12 +70,4 @@ public class MainActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-//    @SuppressLint("InlinedApi")
-//    private final static String[] FROM_COLUMNS = {
-//            Build.VERSION.SDK_INT
-//                    >= Build.VERSION_CODES.HONEYCOMB ?
-//                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
-//                    ContactsContract.Contacts.DISPLAY_NAME
-//    };
 }
