@@ -3,7 +3,7 @@
     package="mobileappdev.tru2form" >
 
     <!-- Ask for permission to send SMS messages -->
-    <uses-permission android:name="android.permission.send_sms" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <!--Ask for permisison to read Contact information-->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
