@@ -1,6 +1,11 @@
 package mobileappdev.tru2form;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +21,12 @@ import android.telephony.SmsManager;
 
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.RecipientEditTextView;
+import com.android.ex.chips.recipientchip.DrawableRecipientChip;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -23,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     EditText editPhoneNum;
     EditText editSMS;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -32,37 +44,6 @@ public class MainActivity extends ActionBarActivity {
                 (RecipientEditTextView) findViewById(R.id.contactsField);
         contactsField.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         contactsField.setAdapter(new BaseRecipientAdapter(BaseRecipientAdapter.QUERY_TYPE_PHONE, this));
-
-        setContentView(R.layout.activity_main);
-
-        button = (ImageButton) findViewById(R.id.sendTextButton);
-        //editPhoneNum = (EditText) findViewById(R.id.);
-        editSMS = (EditText) findViewById(R.id.editText);
-
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                // String phoneNo = editPhoneNum.getText().toString();
-                String phoneNo = "5179158314";
-                String sms = editSMS.getText().toString();
-
-                try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-                    Toast.makeText(getApplicationContext(), "SMS Sent!",
-                            Toast.LENGTH_LONG).show();
-                    editSMS.setText("");
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            "SMS failed, please try again later!",
-                            Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }
-
-            }
-        });
     }
 
 
@@ -110,13 +91,132 @@ public class MainActivity extends ActionBarActivity {
         toast.show();
     }
 
-    // Need to actual send the sms
+    // Implemented in onCreate method. May refactor it to out here if time permitting.
     public void sendText(View view) {
-        Context context = getApplicationContext();
-        CharSequence text = "Text Sent!";
-        int duration = Toast.LENGTH_SHORT;
+        // Retrieve the text message
+        editSMS = (EditText) findViewById(R.id.editText);
+        String sms = editSMS.getText().toString();
 
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        // Get the values of the contacts
+        final RecipientEditTextView contactsField =
+                (RecipientEditTextView) findViewById(R.id.contactsField);
+        DrawableRecipientChip[] chips = contactsField.getRecipients();
+
+        for (DrawableRecipientChip chip : chips) {
+            // Due to differences in CharSequence and String, the correct conversion follows
+            CharSequence value = chip.getValue();
+            StringBuilder builder = new StringBuilder(value.length());
+            builder.append(value);
+            String phoneNumRaw = builder.toString();
+
+            // Use Google's libphonenumber to verify if number is correct and to normalize format
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+            try {
+                // "US" signifies US locale
+                Phonenumber.PhoneNumber usNumberProto = phoneUtil.parse(phoneNumRaw, "US");
+
+                // Verify the number format is correct
+                // phoneUtil.parse may catch all errors already
+                boolean isPossible = phoneUtil.isPossibleNumber(usNumberProto);
+                if (!isPossible) {
+                    System.err.println("Provided number: " + phoneNumRaw + " is not a possible number");
+                    continue;
+                }
+
+                boolean isValid = phoneUtil.isValidNumber(usNumberProto);
+                if (!isValid) {
+                    System.err.println("Provided number: " + phoneNumRaw + " is not valid");
+                    continue;
+                }
+
+                // Get number and format it to string
+                String phoneNumClean = Long.toString(usNumberProto.getNationalNumber());
+
+                sendSMS(phoneNumClean, sms);
+
+            } catch (NumberParseException e) {
+                // The number provided was not a phone number so continue iterating
+                System.err.println("NumberParseException was thrown: " + e.toString());
+            } catch (Exception e) {
+                System.err.println("Exception was thrown: " + e.toString());
+                // e.printStackTrace();
+            }
+        }
+        // Reset the text message field
+        editSMS.setText("");
+    }
+
+    //---sends an SMS message to another device---
+    private void sendSMS(String phoneNumber, String message)
+    {
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(SENT), 0);
+
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(DELIVERED), 0);
+
+        //---when the SMS has been sent---
+        registerReceiver(new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        // Toast for each message made UI cluttered
+//                        Toast.makeText(getBaseContext(), "SMS sent",
+//                                Toast.LENGTH_SHORT).show();
+                        System.out.println("Sent message");
+                        break;
+                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        Toast.makeText(getBaseContext(), "Generic failure",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NO_SERVICE:
+                        Toast.makeText(getBaseContext(), "No service",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NULL_PDU:
+                        Toast.makeText(getBaseContext(), "Null PDU",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_RADIO_OFF:
+                        Toast.makeText(getBaseContext(), "Radio off",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                // Otherwise you leak the listener objects
+                unregisterReceiver(this);
+            }
+        }, new IntentFilter(SENT));
+
+        //---when the SMS has been delivered---
+        registerReceiver(new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        // Only appears on real devices
+                        Toast.makeText(getBaseContext(), "SMS delivered",
+                                Toast.LENGTH_SHORT).show();
+                        //System.out.println("Delivered message");
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(getBaseContext(), "SMS not delivered",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(DELIVERED));
+
+        SmsManager sms = SmsManager.getDefault();
+        List<String> messages = sms.divideMessage(message);
+        for (String single : messages) {
+            sms.sendTextMessage(phoneNumber, null, message, null, null);
+        }
+        System.out.println("sendTextMessage called");
     }
 }

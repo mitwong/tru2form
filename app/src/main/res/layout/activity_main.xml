@@ -50,6 +50,7 @@
         android:src="@drawable/ic_action_send_now"
         android:contentDescription="@string/send_text_description"
 
+        android:onClick="sendText"
 
         android:layout_below="@id/replacementButtons"
         android:layout_alignParentRight="true"/>
