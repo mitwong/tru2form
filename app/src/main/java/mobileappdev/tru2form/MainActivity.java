@@ -33,8 +33,11 @@ public class MainActivity extends ActionBarActivity {
     ImageButton button;
     EditText editPhoneNum;
     EditText editSMS;
-    @Override
 
+    final String firstNamePlaceholder = "<<first>>";
+    final String fullNamePlaceholder = "<<full>>";
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,8 +76,16 @@ public class MainActivity extends ActionBarActivity {
 
     // Need to implement the actual replacement
     public void replaceFirstName(View view) {
+
+        EditText message = (EditText) findViewById(R.id.editText);
+
+        int start = Math.max(message.getSelectionStart(), 0);
+        int end = Math.max(message.getSelectionEnd(), 0);
+        message.getText().replace(Math.min(start, end), Math.max(start, end),
+                firstNamePlaceholder, 0, firstNamePlaceholder.length());
+
         Context context = getApplicationContext();
-        CharSequence text = "Auto Replacing First Name";
+        CharSequence text = "Auto Replace First Name";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
@@ -83,8 +94,15 @@ public class MainActivity extends ActionBarActivity {
 
     // Need to implement the actual replacement
     public void replaceFullName(View view) {
+        EditText message = (EditText) findViewById(R.id.editText);
+
+        int start = Math.max(message.getSelectionStart(), 0);
+        int end = Math.max(message.getSelectionEnd(), 0);
+        message.getText().replace(Math.min(start, end), Math.max(start, end),
+                fullNamePlaceholder, 0, fullNamePlaceholder.length());
+
         Context context = getApplicationContext();
-        CharSequence text = "Auto Replacing Full Name";
+        CharSequence text = "Auto Replace Full Name";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
@@ -95,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
     public void sendText(View view) {
         // Retrieve the text message
         editSMS = (EditText) findViewById(R.id.editText);
-        String sms = editSMS.getText().toString();
+        String rawSms = editSMS.getText().toString();
 
         // Get the values of the contacts
         final RecipientEditTextView contactsField =
@@ -132,7 +150,9 @@ public class MainActivity extends ActionBarActivity {
                 // Get number and format it to string
                 String phoneNumClean = Long.toString(usNumberProto.getNationalNumber());
 
-                sendSMS(phoneNumClean, sms);
+                // Do the replacements for first/full names and send the message
+                String replacedSms = doReplacement(rawSms, chip);
+                sendSMS(phoneNumClean, replacedSms);
 
             } catch (NumberParseException e) {
                 // The number provided was not a phone number so continue iterating
@@ -168,7 +188,6 @@ public class MainActivity extends ActionBarActivity {
                         // Toast for each message made UI cluttered
 //                        Toast.makeText(getBaseContext(), "SMS sent",
 //                                Toast.LENGTH_SHORT).show();
-                        System.out.println("Sent message");
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                         Toast.makeText(getBaseContext(), "Generic failure",
@@ -202,7 +221,6 @@ public class MainActivity extends ActionBarActivity {
                         // Only appears on real devices
                         Toast.makeText(getBaseContext(), "SMS delivered",
                                 Toast.LENGTH_SHORT).show();
-                        //System.out.println("Delivered message");
                         break;
                     case Activity.RESULT_CANCELED:
                         Toast.makeText(getBaseContext(), "SMS not delivered",
@@ -217,6 +235,26 @@ public class MainActivity extends ActionBarActivity {
         for (String single : messages) {
             sms.sendTextMessage(phoneNumber, null, message, null, null);
         }
-        System.out.println("sendTextMessage called");
+    }
+
+
+    private String doReplacement(String original, DrawableRecipientChip chip) {
+        // Retrieve the full name associated with the chip
+        String fullName = chip.getEntry().getDisplayName();
+        Integer firstSpacePos = fullName.indexOf(' ');
+
+        // Retrieve the first name associated with the chip
+        String firstName = "";
+        if (firstSpacePos == -1) {
+            firstName = fullName;
+        } else {
+            firstName = fullName.substring(0, firstSpacePos);
+        }
+
+        // Replace any instances of <<first>> or <<full>>
+        // Note, order is full then first because of case where the first name is <<first>>
+        original = original.replace(fullNamePlaceholder, fullName);
+        original = original.replace(firstNamePlaceholder, firstName);
+        return original;
     }
 }
