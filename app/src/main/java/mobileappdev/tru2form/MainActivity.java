@@ -127,6 +127,15 @@ public class MainActivity extends ActionBarActivity {
             builder.append(value);
             String phoneNumRaw = builder.toString();
 
+            // If this evaluates to true, then there is not contact information for this person
+            if (chip.getContactId() == -1) {
+                continue;
+            }
+
+            System.out.println(chip.toString());
+            System.out.println(chip.getEntry().getContactId());
+            System.out.println(chip.getContactId());
+
             // Use Google's libphonenumber to verify if number is correct and to normalize format
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             try {
@@ -134,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
                 Phonenumber.PhoneNumber usNumberProto = phoneUtil.parse(phoneNumRaw, "US");
 
                 // Verify the number format is correct
-                // phoneUtil.parse may catch all errors already
+                // phoneUtil.parse may catch all errors already, also may be unnecessary
                 boolean isPossible = phoneUtil.isPossibleNumber(usNumberProto);
                 if (!isPossible) {
                     System.err.println("Provided number: " + phoneNumRaw + " is not a possible number");
@@ -164,6 +173,8 @@ public class MainActivity extends ActionBarActivity {
         }
         // Reset the text message field
         editSMS.setText("");
+        // Reset the contacts field
+        contactsField.setText("");
     }
 
     //---sends an SMS message to another device---
@@ -218,9 +229,9 @@ public class MainActivity extends ActionBarActivity {
                 switch (getResultCode())
                 {
                     case Activity.RESULT_OK:
-                        // Only appears on real devices
-                        Toast.makeText(getBaseContext(), "SMS delivered",
-                                Toast.LENGTH_SHORT).show();
+                        // Only appears on real devices, clutters up UI
+//                        Toast.makeText(getBaseContext(), "SMS delivered",
+//                                Toast.LENGTH_SHORT).show();
                         break;
                     case Activity.RESULT_CANCELED:
                         Toast.makeText(getBaseContext(), "SMS not delivered",
