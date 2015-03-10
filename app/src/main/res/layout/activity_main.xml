@@ -66,5 +66,26 @@
         android:layout_below="@id/replacementButtons"
         android:layout_toLeftOf="@id/sendTextButton"/>
 
+    <com.eyeem.chips.ChipsEditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/chipTest"
+        android:inputType="textMultiLine|textNoSuggestions"
+
+        android:textColor="@color/testTextColor"
+        android:textColorHint="@color/testChipColor"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/sendTextButton" />
+
+    <!--<com.eyeem.chips.AutocompletePopover-->
+        <!--android:paddingTop="12dp"-->
+        <!--android:id="@+id/popover"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+
 
 </RelativeLayout>

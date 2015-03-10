@@ -22,10 +22,15 @@ import android.telephony.SmsManager;
 import com.android.ex.chips.BaseRecipientAdapter;
 import com.android.ex.chips.RecipientEditTextView;
 import com.android.ex.chips.recipientchip.DrawableRecipientChip;
+import com.eyeem.chips.AutocompleteManager;
+import com.eyeem.chips.AutocompletePopover;
+import com.eyeem.chips.ChipsEditText;
+import com.eyeem.chips.ChipsTextView;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
@@ -47,6 +52,12 @@ public class MainActivity extends ActionBarActivity {
                 (RecipientEditTextView) findViewById(R.id.contactsField);
         contactsField.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         contactsField.setAdapter(new BaseRecipientAdapter(BaseRecipientAdapter.QUERY_TYPE_PHONE, this));
+
+        final ChipsEditText chipText = (ChipsEditText) findViewById(R.id.chipTest);
+//        final AutocompletePopover popover = (AutocompletePopover) findViewById(R.id.popover);
+//        ArrayList<String> empty = new ArrayList<String>();
+//        popover.setItems(empty);
+//        chipText.setAutocomplePopover(popover);
     }
 
 

@@ -24,9 +24,19 @@ android {
 }
 
 dependencies {
+
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+        mavenCentral()
+        mavenLocal()
+    }
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.klinkerapps:android-chips:+@aar'
     compile 'com.googlecode.libphonenumber:libphonenumber:7.0.2'
+    compile 'com.eyeem.chips:library:0.9.2-SNAPSHOT@aar'
 
 }
