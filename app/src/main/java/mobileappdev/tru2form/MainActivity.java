@@ -132,9 +132,9 @@ public class MainActivity extends ActionBarActivity {
                 continue;
             }
 
-            System.out.println(chip.toString());
-            System.out.println(chip.getEntry().getContactId());
-            System.out.println(chip.getContactId());
+//            System.out.println(chip.toString());
+//            System.out.println(chip.getEntry().getContactId());
+//            System.out.println(chip.getContactId());
 
             // Use Google's libphonenumber to verify if number is correct and to normalize format
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
