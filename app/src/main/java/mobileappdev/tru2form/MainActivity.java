@@ -197,6 +197,8 @@ public class MainActivity extends ActionBarActivity {
                 // e.printStackTrace();
             }
         }
+        Toast.makeText(getBaseContext(), "Finished",
+                Toast.LENGTH_SHORT).show();
         // Reset the text message field
         editSMS.setText("");
         // Reset the contacts field
