@@ -6,8 +6,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.text.style.ImageSpan;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,8 +45,11 @@ public class MainActivity extends ActionBarActivity {
     EditText editPhoneNum;
     EditText editSMS;
 
-    final String firstNamePlaceholder = "<<first>>";
-    final String fullNamePlaceholder = "<<full>>";
+    final String firstNamePlaceholder = "<<<first_name>>>";
+    final String fullNamePlaceholder = "<<<full_name>>>";
+
+    final String firstNameChipText = "First Name";
+    final String fullNameChipText = "Full Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +93,13 @@ public class MainActivity extends ActionBarActivity {
 
         EditText message = (EditText) findViewById(R.id.editText);
 
-        int start = Math.max(message.getSelectionStart(), 0);
-        int end = Math.max(message.getSelectionEnd(), 0);
-        message.getText().replace(Math.min(start, end), Math.max(start, end),
-                firstNamePlaceholder, 0, firstNamePlaceholder.length());
+        // For non-chip based edits
+//        int start = Math.max(message.getSelectionStart(), 0);
+//        int end = Math.max(message.getSelectionEnd(), 0);
+//        message.getText().replace(Math.min(start, end), Math.max(start, end),
+//                firstNamePlaceholder, 0, firstNamePlaceholder.length());
+
+        createChip(message, firstNamePlaceholder, firstNameChipText);
 
         Context context = getApplicationContext();
         CharSequence text = "Auto Replace First Name";
@@ -96,10 +113,13 @@ public class MainActivity extends ActionBarActivity {
     public void replaceFullName(View view) {
         EditText message = (EditText) findViewById(R.id.editText);
 
-        int start = Math.max(message.getSelectionStart(), 0);
-        int end = Math.max(message.getSelectionEnd(), 0);
-        message.getText().replace(Math.min(start, end), Math.max(start, end),
-                fullNamePlaceholder, 0, fullNamePlaceholder.length());
+        // For non-chip based edits
+//        int start = Math.max(message.getSelectionStart(), 0);
+//        int end = Math.max(message.getSelectionEnd(), 0);
+//        message.getText().replace(Math.min(start, end), Math.max(start, end),
+//                fullNamePlaceholder, 0, fullNamePlaceholder.length());
+
+        createChip(message, fullNamePlaceholder, fullNameChipText);
 
         Context context = getApplicationContext();
         CharSequence text = "Auto Replace Full Name";
@@ -161,7 +181,13 @@ public class MainActivity extends ActionBarActivity {
 
                 // Do the replacements for first/full names and send the message
                 String replacedSms = doReplacement(rawSms, chip);
-                sendSMS(phoneNumClean, replacedSms);
+
+                SmsManager sms = SmsManager.getDefault();
+                List<String> messages = sms.divideMessage(replacedSms);
+                for (String single : messages) {
+                    sendSMS(phoneNumClean, single);
+                }
+
 
             } catch (NumberParseException e) {
                 // The number provided was not a phone number so continue iterating
@@ -242,12 +268,8 @@ public class MainActivity extends ActionBarActivity {
         }, new IntentFilter(DELIVERED));
 
         SmsManager sms = SmsManager.getDefault();
-        List<String> messages = sms.divideMessage(message);
-        for (String single : messages) {
-            sms.sendTextMessage(phoneNumber, null, message, null, null);
-        }
+        sms.sendTextMessage(phoneNumber, null, message, null, null);
     }
-
 
     private String doReplacement(String original, DrawableRecipientChip chip) {
         // Retrieve the full name associated with the chip
@@ -267,5 +289,52 @@ public class MainActivity extends ActionBarActivity {
         original = original.replace(fullNamePlaceholder, fullName);
         original = original.replace(firstNamePlaceholder, firstName);
         return original;
+    }
+
+    private void createChip(EditText editText, String placeholder, String chipText) {
+        // get position to replace
+        int start = Math.max(editText.getSelectionStart(), 0);
+        int end = Math.max(editText.getSelectionEnd(), 0);
+        editText.getText().replace(Math.min(start, end), Math.max(start, end),
+                placeholder, 0, placeholder.length());
+
+        SpannableStringBuilder ssb = new SpannableStringBuilder(editText.getText());
+
+        float size = editText.getTextSize();
+        Bitmap viewBmp = textAsBitmap(chipText, size);
+
+        // create bitmap drawable for imagespan
+        BitmapDrawable bmpDrawable = new BitmapDrawable(viewBmp);
+        bmpDrawable.setBounds(0, 0, bmpDrawable.getIntrinsicWidth(), bmpDrawable.getIntrinsicHeight());
+
+        // create and set imagespan
+        ssb.setSpan(new ImageSpan(bmpDrawable),start ,start + placeholder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        editText.setText(ssb);
+        editText.setSelection(start + placeholder.length());
+        System.out.println(editText.getText().toString());
+    }
+
+    private Bitmap textAsBitmap(String text, float textSize) {
+        TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.LINEAR_TEXT_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(convertDpToPixel(textSize));
+        paint.setColor(Color.CYAN);
+        paint.setTextAlign(Paint.Align.LEFT);
+
+        int width = (int) (paint.measureText(text) + 0.5f); // round
+        float baseline = (int) (-paint.ascent() + 0.5f); // ascent() is negative
+        int height = (int) (baseline + paint.descent() + 0.5f);
+
+        Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(image);
+        canvas.drawText(text, 0, baseline, paint);
+
+        return image;
+    }
+
+    public static float convertDpToPixel(float dp){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return px;
     }
 }
