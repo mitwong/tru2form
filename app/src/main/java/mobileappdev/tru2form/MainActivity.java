@@ -318,7 +318,7 @@ public class MainActivity extends ActionBarActivity {
         TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.LINEAR_TEXT_FLAG);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(convertDpToPixel(textSize));
-        paint.setColor(Color.CYAN);
+        paint.setColor(getResources().getColor(R.color.TEAL));
         paint.setTextAlign(Paint.Align.LEFT);
 
         int width = (int) (paint.measureText(text) + 0.5f); // round
