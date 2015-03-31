@@ -28,5 +28,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.klinkerapps:android-chips:+@aar'
     compile 'com.googlecode.libphonenumber:libphonenumber:7.0.2'
-
+    compile 'com.github.amlcurran.showcaseview:library:5.0.0'
 }

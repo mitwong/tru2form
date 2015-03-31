@@ -29,4 +29,16 @@
         android:layout_alignLeft="@id/goToCompose"
         android:layout_alignRight="@id/goToCompose" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/goToTutorial"
+        android:text="Show Tutorial"
+        android:onClick="launchTutorial"
+
+        android:layout_below="@id/goToGroups"
+        android:layout_centerInParent="true"
+        android:layout_alignLeft="@id/goToCompose"
+        android:layout_alignRight="@id/goToCompose" />
+
 </RelativeLayout>

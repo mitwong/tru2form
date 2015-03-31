@@ -87,4 +87,10 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(MainActivity.this, SelectGroup.class);
         startActivity(intent);
     }
+
+    // Starts activity to select groups
+    public void launchTutorial(View view) {
+        Intent intent = new Intent(MainActivity.this, Tutorial.class);
+        startActivity(intent);
+    }
 }

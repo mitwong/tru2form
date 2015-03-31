@@ -12,5 +12,6 @@
     <string name="title_activity_compose">Compose</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_select_group">Select Group</string>
+    <string name="title_activity_tutorial">tutorial</string>
 
 </resources>
