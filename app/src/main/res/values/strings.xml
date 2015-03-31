@@ -11,6 +11,6 @@
     <string name="contacts_hint">To ...</string>
     <string name="title_activity_compose">Compose</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_select_group">SelectGroup</string>
+    <string name="title_activity_select_group">Select Group</string>
 
 </resources>

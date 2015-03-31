@@ -4,6 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SelectGroup extends ActionBarActivity {
@@ -12,6 +17,16 @@ public class SelectGroup extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+
+        ListView sampleGroups = (ListView) findViewById(R.id.listOfGroups);
+        ArrayList arrayList = new ArrayList<String>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1);
+        sampleGroups.setAdapter(adapter);
+
+        for (int i = 0; i < 20; ++i) {
+            adapter.add("Testing");
+        }
     }
 
 

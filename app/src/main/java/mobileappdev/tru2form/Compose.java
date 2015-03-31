@@ -46,11 +46,11 @@ public class Compose extends ActionBarActivity {
     EditText editPhoneNum;
     EditText editSMS;
 
-    final String firstNamePlaceholder = "<<<first_name>>>";
-    final String fullNamePlaceholder = "<<<full_name>>>";
+    final static String firstNamePlaceholder = "<<<first_name>>>";
+    final static String fullNamePlaceholder = "<<<full_name>>>";
 
-    final String firstNameChipText = "First Name";
-    final String fullNameChipText = "Full Name";
+    final static String firstNameChipText = "First Name";
+    final static String fullNameChipText = "Full Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
