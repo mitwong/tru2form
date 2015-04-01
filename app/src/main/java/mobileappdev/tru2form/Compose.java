@@ -95,7 +95,7 @@ public class Compose extends ActionBarActivity {
     // Need to implement the actual replacement
     public void replaceFirstName(View view) {
 
-        EditText message = (EditText) findViewById(R.id.editText);
+        EditText message = (EditText) findViewById(R.id.messageField);
 
         // For non-chip based edits
 //        int start = Math.max(message.getSelectionStart(), 0);
@@ -115,7 +115,7 @@ public class Compose extends ActionBarActivity {
 
     // Need to implement the actual replacement
     public void replaceFullName(View view) {
-        EditText message = (EditText) findViewById(R.id.editText);
+        EditText message = (EditText) findViewById(R.id.messageField);
 
         // For non-chip based edits
 //        int start = Math.max(message.getSelectionStart(), 0);
@@ -136,7 +136,7 @@ public class Compose extends ActionBarActivity {
     // Implemented in onCreate method. May refactor it to out here if time permitting.
     public void sendText(View view) {
         // Retrieve the text message
-        editSMS = (EditText) findViewById(R.id.editText);
+        editSMS = (EditText) findViewById(R.id.messageField);
         String rawSms = editSMS.getText().toString();
 
         // Get the values of the contacts

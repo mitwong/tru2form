@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_message_hint"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/messageField"
 
         android:layout_alignParentLeft="true"
         android:layout_below="@id/replacementButtons"

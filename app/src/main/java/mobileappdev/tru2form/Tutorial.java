@@ -4,6 +4,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.android.ex.chips.RecipientEditTextView;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 
 public class Tutorial extends ActionBarActivity {
@@ -12,6 +19,9 @@ public class Tutorial extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+
+        // Begin showing tutorial
+        displayShowcaseViewOne();
     }
 
 
@@ -35,5 +45,133 @@ public class Tutorial extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayShowcaseViewOne() {
+        new ShowcaseView.Builder(this)
+            .setContentTitle("Contacts Field")
+            .setContentText("Search for recipients in your contacts")
+            .setTarget(new ViewTarget(R.id.contactsField, this))
+            .setShowcaseEventListener(new OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView scv) {
+                }
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView scv) {
+                    scv.setVisibility(View.GONE);
+                    displayShowcaseViewTwo();
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(final ShowcaseView scv) {
+                }
+
+            })
+            .build();
+    }
+
+    private void displayShowcaseViewTwo() {
+        new ShowcaseView.Builder(this)
+            .setContentTitle("Replacing First Name")
+            .setContentText("Click this button to insert a placeholder that will be replaced with a recipient's first name upon sending the group message")
+            .setTarget(new ViewTarget(R.id.firstNameReplaceButton, this))
+            .setShowcaseEventListener(new OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView scv) {
+                }
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView scv) {
+                    scv.setVisibility(View.GONE);
+                    displayShowcaseViewThree();
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(final ShowcaseView scv) {
+                }
+
+            })
+            .build();
+    }
+
+    private void displayShowcaseViewThree() {
+        new ShowcaseView.Builder(this)
+            .setContentTitle("Replacing Full Name")
+            .setContentText("Click this button to insert a placeholder that will be replaced with a recipient's full name upon sending the group message. If a recipient does not have a last name, then no last name will be added.")
+            .setTarget(new ViewTarget(R.id.fullNameReplaceButton, this))
+            .setShowcaseEventListener(new OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView scv) {
+                }
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView scv) {
+                    scv.setVisibility(View.GONE);
+                    displayShowcaseViewFour();
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(final ShowcaseView scv) {
+                }
+
+            })
+            .build();
+    }
+    private void displayShowcaseViewFour() {
+        new ShowcaseView.Builder(this)
+            .setContentTitle("Write Your Message")
+            .setContentText("Compose your message here. Placeholders are represented with blue text and can be deleted like normal text.")
+            .setTarget(new ViewTarget(R.id.messageField, this))
+            .setShowcaseEventListener(new OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView scv) {
+                }
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView scv) {
+                    scv.setVisibility(View.GONE);
+                    // Doesn't work as intended. Doesn't wrap text properly.
+                    // displayShowcaseViewFive();
+
+                    // Return to main activity
+                    finish();
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(final ShowcaseView scv) {
+                }
+
+            })
+            .build();
+    }
+
+    // Doesn't work as intended. Doesn't wrap text properly.
+    private void displayShowcaseViewFive() {
+        new ShowcaseView.Builder(this)
+            .setContentTitle("Send Your Group Message")
+            .setContentText("Click this to send your message.")
+            .setTarget(new ViewTarget(R.id.sendTextButton, this))
+            .setShowcaseEventListener(new OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView scv) {
+                }
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView scv) {
+                    scv.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onShowcaseViewDidHide(final ShowcaseView scv) {
+                }
+
+            })
+            .build().setShouldCentreText(true);
     }
 }
