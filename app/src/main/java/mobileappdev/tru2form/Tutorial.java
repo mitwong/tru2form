@@ -69,7 +69,7 @@ public class Tutorial extends ActionBarActivity {
                 }
 
             })
-            .build();
+            .build().setButtonText("Next");
     }
 
     private void displayShowcaseViewTwo() {
@@ -94,7 +94,7 @@ public class Tutorial extends ActionBarActivity {
                 }
 
             })
-            .build();
+            .build().setButtonText("Next");
     }
 
     private void displayShowcaseViewThree() {
@@ -119,7 +119,7 @@ public class Tutorial extends ActionBarActivity {
                 }
 
             })
-            .build();
+            .build().setButtonText("Next");
     }
     private void displayShowcaseViewFour() {
         new ShowcaseView.Builder(this)
@@ -147,7 +147,7 @@ public class Tutorial extends ActionBarActivity {
                 }
 
             })
-            .build();
+            .build().setButtonText("Finish");
     }
 
     // Doesn't work as intended. Doesn't wrap text properly.
