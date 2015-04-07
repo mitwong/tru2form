@@ -136,6 +136,7 @@ public class Compose extends ActionBarActivity {
     // Implemented in onCreate method. May refactor it to out here if time permitting.
     public void sendText(View view) {
         // Retrieve the text message
+        int count = 0;
         editSMS = (EditText) findViewById(R.id.messageField);
         String rawSms = editSMS.getText().toString();
 
@@ -191,7 +192,7 @@ public class Compose extends ActionBarActivity {
                 for (String single : messages) {
                     sendSMS(phoneNumClean, single);
                 }
-
+                count++;
 
             } catch (NumberParseException e) {
                 // The number provided was not a phone number so continue iterating
@@ -201,10 +202,17 @@ public class Compose extends ActionBarActivity {
                 // e.printStackTrace();
             }
         }
-        Toast.makeText(getBaseContext(), "Finished",
-                Toast.LENGTH_SHORT).show();
+        if (count == chips.length) {
+            Toast.makeText(getBaseContext(), "Message Status: Success for All Recipients",
+                    Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(getBaseContext(), "Message Sent to " + count + " of " + chips.length +
+                    " Recipients\n Check " + (chips.length - count) + " for Valid Phone Numbers",Toast.LENGTH_LONG).show();
+        }
         // Reset the text message field
         editSMS.setText("");
+        count = 0;
         // Reset the contacts field
         contactsField.setText("");
     }
