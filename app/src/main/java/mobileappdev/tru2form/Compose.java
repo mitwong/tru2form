@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -39,6 +40,7 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 
 import java.util.List;
+import java.util.Map;
 
 public class Compose extends ActionBarActivity {
 
@@ -65,6 +67,20 @@ public class Compose extends ActionBarActivity {
                 (RecipientEditTextView) findViewById(R.id.contactsField);
         contactsField.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         contactsField.setAdapter(new BaseRecipientAdapter(BaseRecipientAdapter.QUERY_TYPE_PHONE, this));
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String inGroup = extras.getString("group_name");
+            SharedPreferences incomingContacts = getSharedPreferences(inGroup, Context.MODE_PRIVATE);
+            Map<String,?> keys = incomingContacts.getAll();
+
+            for (Map.Entry<String,?> entry : keys.entrySet()){
+                System.out.println(entry.getValue().toString());
+                contactsField.submitItem(entry.getValue().toString(), entry.getKey());
+
+            }
+        }
+
     }
 
 

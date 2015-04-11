@@ -6,21 +6,59 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="mobileappdev.tru2form.SelectGroup">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/groupPlaceholder"-->
-        <!--android:text="Groups Will Be Here"-->
+    <com.android.ex.chips.RecipientEditTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/groupContactsField"
+        android:hint="Add Recipients..."
 
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_centerVertical="true"/>-->
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:id="@+id/replacementButtons"
+
+        android:layout_below="@id/groupContactsField">
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/sendTextButton"
+        android:src="@drawable/ic_action_send_now"
+        android:contentDescription="@string/send_text_description"
+
+        android:onClick="processGroup"
+
+        android:layout_below="@id/replacementButtons"
+        android:layout_alignParentRight="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hello_world"
+        android:ems="10"
+        android:id="@+id/groupNameField"
+        android:editable ="true"
+        android:clickable="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/replacementButtons"
+        android:layout_toLeftOf="@id/sendTextButton"/>
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/listOfGroups"
 
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@id/sendTextButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"/>
+
 
 </RelativeLayout>
