@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
@@ -60,6 +61,8 @@ public class SelectGroup extends ActionBarActivity {
     ImageButton button;
     EditText editPhoneNum;
     EditText newGroupName;
+    ArrayAdapter<String> adapter;
+    ArrayList arrayList;
 
 
     @Override
@@ -77,8 +80,8 @@ public class SelectGroup extends ActionBarActivity {
         contactsField.setAdapter(new BaseRecipientAdapter(BaseRecipientAdapter.QUERY_TYPE_PHONE, this));
 
         ListView sampleGroups = (ListView) findViewById(R.id.listOfGroups);
-        ArrayList arrayList = new ArrayList<String>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        arrayList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1);
         sampleGroups.setAdapter(adapter);
 
@@ -96,10 +99,11 @@ public class SelectGroup extends ActionBarActivity {
         SharedPreferences groupList = getSharedPreferences("groupList", Context.MODE_PRIVATE);
         Map<String,?> keys = groupList.getAll();
         System.out.println("Got prefs in map");
-        adapter.add("Test");
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            adapter.add(entry.getKey());
+            arrayList.add(entry.getKey());
         }
+        Collections.sort(arrayList);
+        adapter.addAll(arrayList);
     }
 
 
@@ -166,6 +170,12 @@ public class SelectGroup extends ActionBarActivity {
             }
         }
         contactListEditor.commit();
+        arrayList.add(userGroupName);
+        Collections.sort(arrayList);
+        adapter.clear();
+        adapter.addAll(arrayList);
+        adapter.notifyDataSetChanged();
+
         return;
     }
 
