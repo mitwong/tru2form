@@ -4,41 +4,60 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/home_background"
     tools:context="mobileappdev.tru2form.MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/goToCompose"
-        android:text="Compose Message"
-        android:onClick="launchCompose"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true" />
 
     <!--AlignLeft and AlignRight works if the goToCompose has text that is larger than goToGroup's text-->
-    <Button
-        android:layout_width="wrap_content"
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/goToGroups"
-        android:text="Select Group"
-        android:onClick="launchSelectGroup"
+        android:layout_marginBottom="166dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
 
-        android:layout_below="@id/goToCompose"
-        android:layout_centerInParent="true"
-        android:layout_alignLeft="@id/goToCompose"
-        android:layout_alignRight="@id/goToCompose" />
+        <Button
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/goToCompose"
+            android:text="Compose Message"
+            android:onClick="launchCompose"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/goToTutorial"
-        android:text="Show Tutorial"
-        android:onClick="launchTutorial"
 
-        android:layout_below="@id/goToGroups"
-        android:layout_centerInParent="true"
-        android:layout_alignLeft="@id/goToCompose"
-        android:layout_alignRight="@id/goToCompose" />
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/goToGroups"
+            android:text="Select Group"
+            android:onClick="launchSelectGroup"
+
+            android:layout_centerInParent="true"
+            android:layout_alignLeft="@id/goToCompose"
+            android:layout_alignRight="@id/goToCompose"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/goToTutorial"
+            android:text="Show Tutorial"
+            android:onClick="launchTutorial"
+
+            android:layout_below="@id/goToGroups"
+            android:layout_centerInParent="true"
+            android:layout_alignLeft="@id/goToCompose"
+            android:layout_alignRight="@id/goToCompose"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

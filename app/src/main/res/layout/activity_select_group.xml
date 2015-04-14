@@ -43,14 +43,16 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/hello_world"
+        android:hint="Group Name"
+
         android:ems="10"
         android:id="@+id/groupNameField"
         android:editable ="true"
         android:clickable="true"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/replacementButtons"
-        android:layout_toLeftOf="@id/sendTextButton"/>
+        android:layout_toLeftOf="@id/sendTextButton"
+        android:inputType="textPersonName" />
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
