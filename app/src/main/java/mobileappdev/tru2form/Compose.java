@@ -21,6 +21,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 import android.telephony.SmsManager;
@@ -219,12 +221,18 @@ public class Compose extends ActionBarActivity {
             }
         }
         if (count == chips.length) {
-            Toast.makeText(getBaseContext(), "Message Status: Success for All Recipients",
-                    Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(getBaseContext(), "Message Status: Success for All Recipients",
+                    Toast.LENGTH_LONG);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
         }
         else{
-            Toast.makeText(getBaseContext(), "Message Sent to " + count + " of " + chips.length +
-                    " Recipients\n Check " + (chips.length - count) + " for Valid Phone Numbers",Toast.LENGTH_LONG).show();
+            Toast toast = Toast.makeText(getBaseContext(), "Message Sent to " + count + " of " + chips.length +
+                    " Recipients\n Check " + (chips.length - count) + " for Valid Phone Numbers",Toast.LENGTH_LONG);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
         }
         // Reset the text message field
         editSMS.setText("");
