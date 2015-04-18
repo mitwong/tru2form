@@ -6,40 +6,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="mobileappdev.tru2form.SelectGroup">
 
-    <com.android.ex.chips.RecipientEditTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/groupContactsField"
-        android:hint="Add Recipients..."
-
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:id="@+id/replacementButtons"
-
-        android:layout_below="@id/groupContactsField">
-
-    </LinearLayout>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/sendTextButton"
-        android:src="@drawable/ic_action_send_now"
-        android:contentDescription="@string/send_text_description"
-
-        android:onClick="processGroup"
-
-        android:layout_below="@id/replacementButtons"
-        android:layout_alignParentRight="true"/>
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,17 +16,59 @@
         android:editable ="true"
         android:clickable="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/replacementButtons"
-        android:layout_toLeftOf="@id/sendTextButton"
-        android:inputType="textPersonName" />
+        android:layout_alignParentTop="true"
+        android:inputType="textPersonName"
+        android:layout_toLeftOf="@+id/sendTextButton" />
+
+    <com.android.ex.chips.RecipientEditTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/groupContactsField"
+        android:hint="Add Recipients..."
+
+        android:layout_alignParentTop="false"
+        android:layout_below="@id/groupNameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/sendTextButton"
+        android:src="@drawable/ic_action_send_now"
+        android:contentDescription="@string/send_text_description"
+        android:text="Save"
+        android:maxWidth="25dp"
+        android:onClick="processGroup"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/groupNameField"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Saved Groups:"
+        android:id="@+id/textView"
+        android:layout_below="@+id/groupContactsField"
+        android:layout_alignParentLeft="true"
+        android:ems = "10"
+        />
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/listOfGroups"
 
-        android:layout_below="@id/sendTextButton"
+        android:layout_below="@id/textView"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"/>
+
 
 
 </RelativeLayout>
