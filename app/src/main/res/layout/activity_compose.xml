@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/firstNameReplaceButton"
-            android:text="Auto First Name"
+            android:text="Insert First Name"
             android:onClick="replaceFirstName"/>
 
         <Button
@@ -38,22 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:id="@+id/fullNameReplaceButton"
-            android:text="Auto Full Name"
+            android:text="Insert Full Name"
             android:onClick="replaceFullName"/>
     </LinearLayout>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/sendTextButton"
-        android:src="@drawable/ic_action_send_now"
-        android:contentDescription="@string/send_text_description"
-
-        android:onClick="sendText"
-
-        android:layout_below="@id/replacementButtons"
-        android:layout_alignParentRight="true"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,8 +49,11 @@
         android:ems="10"
         android:id="@+id/messageField"
 
+        android:imeOptions="actionSend"
+        android:singleLine="true"
+
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/replacementButtons"
-        android:layout_toLeftOf="@id/sendTextButton"/>
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/replacementButtons"/>
 
 </RelativeLayout>

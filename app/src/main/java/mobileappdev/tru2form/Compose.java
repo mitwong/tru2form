@@ -22,10 +22,12 @@ import android.text.TextPaint;
 import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
@@ -82,6 +84,24 @@ public class Compose extends ActionBarActivity {
 
             }
         }
+
+        // Sets up the message field to allow for keyboard send button
+        EditText editText = (EditText) findViewById(R.id.messageField);
+        editText.setHorizontallyScrolling(false);
+        editText.setMaxLines(Integer.MAX_VALUE);
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    sendText(getWindow().getDecorView().findViewById(android.R.id.content));
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
 
     }
 
