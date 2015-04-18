@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.ex.chips.RecipientEditTextView;
 import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
@@ -19,6 +20,16 @@ public class Tutorial extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+
+        // Prevents user from interacting with ui
+        View contacts = findViewById(R.id.contactsField);
+        contacts.setEnabled(false);
+        View first = findViewById(R.id.firstNameReplaceButton);
+        first.setEnabled(false);
+        View full = findViewById(R.id.fullNameReplaceButton);
+        full.setEnabled(false);
+        View message = findViewById(R.id.messageField);
+        message.setEnabled(false);
 
         // Begin showing tutorial
         displayShowcaseViewOne();
@@ -135,9 +146,6 @@ public class Tutorial extends ActionBarActivity {
                 @Override
                 public void onShowcaseViewHide(final ShowcaseView scv) {
                     scv.setVisibility(View.GONE);
-                    // Doesn't work as intended. Doesn't wrap text properly.
-                    // displayShowcaseViewFive();
-
                     // Return to main activity
                     finish();
                 }
@@ -148,30 +156,5 @@ public class Tutorial extends ActionBarActivity {
 
             })
             .build().setButtonText("Finish");
-    }
-
-    // Doesn't work as intended. Doesn't wrap text properly.
-    private void displayShowcaseViewFive() {
-        new ShowcaseView.Builder(this)
-            .setContentTitle("Send Your Group Message")
-            .setContentText("Click this to send your message.")
-            .setTarget(new ViewTarget(R.id.sendTextButton, this))
-            .setShowcaseEventListener(new OnShowcaseEventListener() {
-
-                @Override
-                public void onShowcaseViewShow(final ShowcaseView scv) {
-                }
-
-                @Override
-                public void onShowcaseViewHide(final ShowcaseView scv) {
-                    scv.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onShowcaseViewDidHide(final ShowcaseView scv) {
-                }
-
-            })
-            .build().setShouldCentreText(true);
     }
 }
