@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -46,6 +47,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         // Ensures portrait modes
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

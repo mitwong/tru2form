@@ -2,13 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingBottom="0dp"
     android:background="@drawable/home_background"
     tools:context="mobileappdev.tru2form.MainActivity">
 
 
     <!--AlignLeft and AlignRight works if the goToCompose has text that is larger than goToGroup's text-->
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
+        <!--android:text-->
+
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentTop="true"/>-->
 
 
     <LinearLayout
@@ -17,61 +25,62 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:id="@+id/activitybuttons">
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:id="@+id/goToCompose"
             android:text="Compose Message"
             android:onClick="launchCompose"
             android:drawableLeft="@drawable/ic_action_new_email"
-            android:paddingLeft="50dip"
+            android:paddingLeft="75dip"
 
 
             android:layout_centerInParent="true"
-            android:paddingRight = "50dip"
+            android:paddingRight = "75dip"
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#51AEE7" />
+            android:background="#4DB6AC" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:id="@+id/goToGroups"
             android:text="Select Group"
             android:onClick="launchSelectGroup"
             android:drawableLeft="@drawable/ic_action_group"
-            android:paddingLeft="50dip"
+            android:paddingLeft="75dip"
 
             android:layout_centerInParent="true"
             android:layout_alignLeft="@id/goToCompose"
             android:layout_alignRight="@id/goToCompose"
-            android:paddingRight = "84dip"
+            android:paddingRight = "109dip"
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#F2CD02" />
+            android:background="#80CBC4" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:id="@+id/goToTutorial"
             android:text="Show Tutorial"
             android:onClick="launchTutorial"
             android:drawableLeft="@drawable/ic_action_play"
-            android:paddingLeft="50dip"
+            android:paddingLeft="75dip"
 
             android:layout_below="@id/goToGroups"
             android:layout_centerInParent="true"
             android:layout_alignLeft="@id/goToCompose"
             android:layout_alignRight="@id/goToCompose"
-            android:paddingRight = "75dip"
+            android:paddingRight = "100dip"
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#CE662F" />
+            android:background="#B2DFDB" />
 
     </LinearLayout>
 

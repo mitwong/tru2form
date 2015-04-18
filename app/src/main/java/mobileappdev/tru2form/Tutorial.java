@@ -1,5 +1,6 @@
 package mobileappdev.tru2form;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +21,10 @@ public class Tutorial extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
+
+        // Hide the action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         // Prevents user from interacting with ui
         View contacts = findViewById(R.id.contactsField);
