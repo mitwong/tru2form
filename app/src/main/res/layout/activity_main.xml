@@ -8,16 +8,6 @@
 
 
     <!--AlignLeft and AlignRight works if the goToCompose has text that is larger than goToGroup's text-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-
-        <!--android:text-->
-
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentTop="true"/>-->
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -43,7 +33,7 @@
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#4DB6AC" />
+            android:background="#80CBC4" />
 
         <Button
             android:layout_width="match_parent"
@@ -61,7 +51,7 @@
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#80CBC4" />
+            android:background="#B2DFDB" />
 
         <Button
             android:layout_width="match_parent"
@@ -80,7 +70,7 @@
             android:gravity="right|center_vertical"
             android:layout_gravity="center_horizontal"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#B2DFDB" />
+            android:background="#C9E9E6" />
 
     </LinearLayout>
 
